@@ -2,87 +2,89 @@
 ## REGISTER NUMBER: 212223110061
 
 
-# Experiment--03-Half-Subtractor-and-Full-subtractor
-## Implementation-of-Half-subtractor-and-Full-subtractor-circuit
-## AIM:
-To design a half subtractor and full subtractor circuit and verify its truth table in Quartus using Verilog programming.
-
-## Equipments Required:
-## Hardware – PCs, Cyclone II , USB flasher
-## Software – Quartus prime
-## Theory
-Subtractor circuits take two binary numbers as input and subtract one binary number input from the other binary number input. Similar to adders, it gives out two outputs, difference and borrow (carry-in the case of Adder). There are two types of subtractors.
-
-## Half Subtractor Full Subtractor
-## Half Subtractor
-The half-subtractor is a combinational circuit which is used to perform subtraction of two bits. It has two inputs, X (minuend) and Y (subtrahend) and two outputs D (difference) and B (borrow). To perform x - y, we have to check the relative magnitudes of x and y. If x ;;, y, we have three possibilities: 0 - 0 = 0, 1 - 0 = 1, and 1 - I = 0. The result is called the difference bit. If x < y, we have 0 - I, and it is necessary to borrow a 1 from the next higher stage. The I borrowed from the next higher stage adds 2 to the minuend bit, just as in the decimal system a borrow adds 10 to a minuend digit. With the minuend equal to 2, the difference becomes 2 - I = 1. The half-subtractor needs two outputs. One output generates the difference and will be designated by the symbol D. The second output, designated B for borrow, generates the binary signal that informs the next stage that a I has been borrowed.
-![half-subtractor9](https://user-images.githubusercontent.com/36288975/166112538-58c3bc7c-ee5d-4e6a-ac8d-8e8328efe27a.png)
 
 
-Sum = X'Y+XY' = X ⊕ Y
-Carry=X'Y
+# Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit
 
-## Full Subtractor
-A full subtractor is a combinational circuit that performs subtraction involving three bits, namely minuend, subtrahend, and borrow-in . It accepts three inputs: minuend, subtrahend and a borrow bit and it produces two outputs: difference and borrow. 
-![full-subtractor6](https://user-images.githubusercontent.com/36288975/166112541-24c68359-3de8-4674-ae22-8272ffc385ed.png)
+# Implementation-of-Half-Adder-and-Full-Adder-circuit
+### AIM:
+To design a half adder and full adder circuit and verify its truth table in Quartus using Verilog programming.
+
+### Equipments Required:
+Hardware – PCs, Cyclone II , USB flasher
+Software – Quartus prime
+Theory
+Adders are digital circuits that carry out addition of numbers.
+
+### Procedure
+
+Connect the supply (+5V) to the circuit
+Switch ON the main switch
+If the output is 1, then the led glows.
+
+## Theory:
+Adders are digital circuits that carry out addition of numbers.
+
+### Half Adder
+Half adder is a combinational circuit that performs simple addition of two binary numbers. The input variables designate the augend and addend bits; the output variables produce the sum and carry. It is necessary to specify two output variables because the result may consist of two binary digits. 
+Sum = A’B+AB’ =A ⊕ B Carry = AB
+#### Figure -01 HALF ADDER 
+![image](https://github.com/PRASHANTHRATHI/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/145743120/881166b3-0966-425d-b01c-e7e9d867e0dc)
 
 
-Diff = A ⊕ B ⊕ Bin B = A'Bin + A'B + BBin
+### Full Adder
+Full adder is a digital circuit used to calculate the sum of three binary bits. It consists of three inputs and two outputs. Two of the input variables, denoted by A and B, represent the two significant bits to be added. The third input, Cin, represents the carry from the previous lower significant position. Two outputs are necessary because the arithmetic sum of three binary digits ranges in value from 0 to 3, and binary 2 or 3 needs two digits. The two outputs are sum and carry.
 
-## Procedure
-1.Use module projname(input,output) to start the Verilog programming.
+Sum =A’B’Cin + A’BCin’ + ABCin + AB’Cin’ = A ⊕ B ⊕ Cin Carry = AB + ACin + BCin
+#### Figure -02 FULL ADDER 
+![image](https://github.com/PRASHANTHRATHI/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/145743120/b30284b0-586c-467b-934b-07530c4f772f)
 
-2.Assign inputs and outputs using the word input and output respectively.
-
-3.Use defined keywords like wire,assign and required logic gates to represent the boolean expression.
-
-4.Use each output to represent one for difference and the other for borrow.
-
-5.End the verilog program using keyword endmodule
-
-## Program:
-## HALF SUBTRACTOR
+### Program:
+## HALF ADDER
 ```
-module halfsub(a,b,differ,borrow,borrow);
+module ha(sum,carry,a,b);
+output sum,carry;
 input a,b;
-output differ,borrow;
-xor(differ,a,b);
-assign borrow = ~a & b;
+assign sum=a^b;
+assign carry=a&b;
 endmodule
 ```
-## FULL SUBTRACTOR
+## FULL ADDER
 ```
-module fullsub(diff,carry,a,b,c);
+module FULLADDER(a,b,c,sum,carry);
 input a,b,c;
-output diff,carry;
-xor(diff,a,b,c);
-assign carry= (~a)&c | (~a)&b | (b&c);
+output sum,carry;
+wire x,p,q,r;
+xor(x,b,c);
+xor(sum,x,a);
+and(p,a,b);
+and(q,b,c);
+and(r,a,c);
+or(carry,p,q,r);
 endmodule
 ```
+### Output:
+### RTL
+##  HALF ADDER
+![d2](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/b4bf7059-b7ca-492a-893e-3f53a709d35c)
+## FULL ADDER
+![d2](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/9a3260cb-1fa0-4ce0-aed0-5759ae2b8047)
 
-## Output:
+### TIMING DIAGRAM
+## HALF ADDER
+![d222](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/0ecf1888-306c-48e0-9bb3-10a0872eec77)
 
-## Truthtable
-## HALF SUBTRACTOR
-![D3](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/a30424ac-b228-4d7d-9b73-86f54d171d79)
+## FULL ADDER
+![d2222](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/a4272856-655f-4929-9641-8353b46c33c2)
 
-## FULL SUBTRACTOR
-![D33](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/87c3028d-80a0-4b9a-8c62-50e85f7ada84)
+### TRUTH TABLE 
+## HALF ADDER
+![d22222](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/3b5e866b-deea-4e46-80ab-50b42d0cbb57)
 
-##  RTL realization
-## HALF SUBTRACTOR
-![D333](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/84df8291-d335-449e-a26f-02cc784d5642)
+## FULL ADDER
+![d222222](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/1a3adfa7-36f2-4f68-a4c4-821ba091f480)
 
-## FULL SUBTRATOR
-![D3333](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/39fd9ac0-0df5-4f17-b0be-68a3f9265c7b)
 
-## Timing diagram 
-## HALF SUBTRACTOR
-![D33333](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/f37977fe-0afe-41eb-aded-9335e4d42db9)
+### Result:
+Thus the given logic functions are implemented and their operations are verified using verilog programming
 
-## FULL SUBTRACTOR
-
-![D333333](https://github.com/SVENGADAKRISHNAN/Exp-02-Implementation-of-Half-Adder-and-Full-Adder-circuit/assets/147473084/218779a8-594e-40cb-bc0d-eb035bb02c4a)
-
-## Result:
-Thus the half subtractor and full subtractor circuits are designed and the truth tables is verified using quartus software.
